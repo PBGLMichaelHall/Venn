@@ -397,7 +397,13 @@ write.table(DF7, file = "SNP.txt", sep = "\t", row.names = FALSE, col.names = FA
 
 
 # A text file with each unique SNP for each sample is written to the current directory.
-![Screenshot from 2022-03-17 14-53-04](https://user-images.githubusercontent.com/93121277/158827034-1a10fb63-f11a-4396-9f0e-06d9929796a3.png)
+![Screenshot from 2022-03-17 15-43-17](https://user-images.githubusercontent.com/93121277/158830110-5ffddb8c-8487-4967-92f4-650e7d0ff86b.png)
+
+# Chromsomes with random SNP annotations
+
+![Screenshot from 2022-03-17 15-49-00](https://user-images.githubusercontent.com/93121277/158830672-749bde70-0935-4c4e-b816-adf220562497.png)
+
+
 ```r
 
 Chr1Len <- 43270923
@@ -544,7 +550,9 @@ write.table(DF7, file = "SNP2.txt", sep = "\t", row.names = FALSE, col.names = F
 ```
 
 # The SNP2.txt file 
-![Screenshot from 2022-03-17 15-25-57](https://user-images.githubusercontent.com/93121277/158828012-969c945b-d561-44be-972b-15ee85a6d94a.png)
+
+![Screenshot from 2022-03-17 15-43-17](https://user-images.githubusercontent.com/93121277/158830271-5063d8ee-76b4-4a76-a641-4d23db41825e.png)
+
 
 ```r
 
