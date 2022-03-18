@@ -399,9 +399,10 @@ write.table(DF7, file = "SNP.txt", sep = "\t", row.names = FALSE, col.names = FA
 # A text file with each unique SNP for each sample is written to the current directory.
 ![Screenshot from 2022-03-17 15-43-17](https://user-images.githubusercontent.com/93121277/158830110-5ffddb8c-8487-4967-92f4-650e7d0ff86b.png)
 
-# Chromsomes with random SNP annotations
+# A Chromosome file with starting positions and lengths is needed for annotation purposes
 
-![Screenshot from 2022-03-17 15-49-00](https://user-images.githubusercontent.com/93121277/158830672-749bde70-0935-4c4e-b816-adf220562497.png)
+![Screenshot from 2022-03-18 08-45-29](https://user-images.githubusercontent.com/93121277/158958572-b2fed242-f251-4106-bd91-51860d86b168.png)
+
 
 
 ```r
