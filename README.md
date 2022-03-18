@@ -68,6 +68,7 @@ z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE,
 
 
 #Call in your VCF File
+#The original file was freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz"
 f1 <- 'freebayes~bwa~IRGSP-1.0~S14~HOM-VAR.vcf.gz'
 ```
 
@@ -131,6 +132,73 @@ e + geom_point() + labs(title = "Quality per SNP by Alternate Allele")  + geom_s
 ```
 # The plot of quality scores again
 ![Screenshot from 2022-03-17 13-28-18](https://user-images.githubusercontent.com/93121277/158808514-b084a0d5-057a-461e-9630-d3a2644cfc38.png)
+
+
+```r
+
+#Set the working directory
+setwd("/home/michael/Desktop/SNPREL")
+getwd()
+
+#Decompress gzip file if necessary
+#vcf.fn <- gunzip("freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz")
+#Use your own VCF File
+vcf.fn <- "Rename.vcf"
+snpgdsVCF2GDS(vcf.fn, "test.gds", method="biallelic.only")
+``` 
+
+# R Console output
+![Screenshot from 2022-03-18 09-33-12](https://user-images.githubusercontent.com/93121277/158965095-aacf87e1-8a4a-4a1e-be09-7415f4149133.png)
+
+```r
+snpgdsSummary("test.gds")
+
+```
+# Summary
+
+![Screenshot from 2022-03-18 09-34-30](https://user-images.githubusercontent.com/93121277/158965202-6ff2de9c-0197-4eeb-ba9a-eaaadee31af6.png)
+
+
+# Open the GDS file
+
+```r
+genofile1 <- snpgdsOpen("test.gds")
+
+#Set the seed for consistent reproducible results
+set.seed(1000)
+
+# Pruning the set at different LD thresholds for sensitivity analysis
+snpset <- snpgdsLDpruning(genofile1, autosome.only=TRUE,ld.threshold=0.7)
+
+```
+# SNP Pruning output
+![Screenshot from 2022-03-18 09-35-24](https://user-images.githubusercontent.com/93121277/158965405-54b0d403-27a8-4854-9dc2-595830d42479.png)
+
+```r
+
+names(snpset)
+snpset.id <- unlist(snpset)
+
+#Open a new development graphics frame
+dev.new()
+diss <- snpgdsDiss(genofile1)
+```
+# Dissimilarity Output
+![Screenshot from 2022-03-18 09-37-08](https://user-images.githubusercontent.com/93121277/158965652-bf822e77-c76d-4e49-aa72-f66c49eb15cd.png)
+
+```r
+hc <- snpgdsHCluster(diss)
+
+rv <- snpgdsCutTree(hc, label.H = TRUE, label.Z = TRUE)
+dev.new()
+png(file="Rice Dendrogram.png")
+snpgdsDrawTree(rv,type = "dendrogram",outlier.col = "red", main = "SNP Relate Rice Dendrogram",y.label.kinship = TRUE,leaflab = "textlike")
+dev.off()
+```
+# Rice Dendrogram Tree
+
+![Screenshot from 2022-03-18 09-38-47](https://user-images.githubusercontent.com/93121277/158965871-b397f9ec-1709-4ba0-b0a4-168057ba30df.png)
+
 
 ```r
 
