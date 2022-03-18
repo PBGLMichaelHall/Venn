@@ -99,8 +99,42 @@ vcf <- vcfR2tidy(vcf)
 
 # Make a Data frame calling the function below
 ```r
+# Call ChromQual function from QTLseqr package
+Data <- QTLseqr::ChromQual(vcf = vcf, SampleName = "S14")
+
+#Refer to DataFrame and find fixed length of Quality vector
+l <- length(Data$Qual)
+
+#Make an object equal to the number of SNPs called
+SNP<-seq(from = 0,to = l - 1, by = 1)
+
+#Extract quality value per SNP called
+Quality<- Data$Qual
+
+#Extract Chromosome Key
+Chrom <- Data$CHROM
+
+#Extract Position
+POS <- Data$POS
+
+#Extract Depth
+DP <- Data$DP
+
+#Extract Reference Allele
+REF <- Data$REF
+
+#Make a dataframe with both objects
+df <- data.frame(x = POS, y = Quality, z = Chrom, z2 = DP, z3 = REF)
+
+#Call ggplot package to plot the data
+d<-ggplot(data = df, aes(x = SNP, y = Quality))
+d + geom_point() + labs(title = "Quality per SNP Sample 14") + facet_grid(Chrom) + geom_smooth()
 
 ```
+
+# The plot
+![Screenshot from 2022-03-18 15-23-10](https://user-images.githubusercontent.com/93121277/159020586-2f46749a-8f94-4234-a7e8-5da77ac4a9f8.png)
+
 
 # Call the command from the command line to view the VCF header
 
