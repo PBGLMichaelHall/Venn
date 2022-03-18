@@ -396,7 +396,7 @@ plot(Venn(Sets=z99,Weight = F))
 All_Int <- Reduce(intersect, list(v6,v7,v8,v9,v10))
 
 
-Pos<-lapply(All_Int, function(f) substr(f, 9:14, 21))
+Pos<-lapply(All_Int, function(f) substr(f, 9:16, 21))
 
 
 Chr<-lapply(All_Int, function(f) substr(f,6:8,8))
@@ -555,7 +555,7 @@ v18<- gsub("[^0-9.-]","",v18$data$S12)
 All_Int <- Reduce(intersect, list(v11,v12,v13,v14,v15,v16,v17,v18))
 
 
-Pos<-lapply(All_Int, function(f) substr(f, 9:14, 21))
+Pos<-lapply(All_Int, function(f) substr(f, 9:16, 21))
 
 
 Chr<-lapply(All_Int, function(f) substr(f,6:8,8))
