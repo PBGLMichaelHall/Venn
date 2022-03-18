@@ -507,7 +507,8 @@ chromoMap("chr.txt", "SNP.txt", ploidy = 1)
 
 ```
 
-![Screenshot from 2022-03-18 09-05-52](https://user-images.githubusercontent.com/93121277/158961129-ede84dce-ee26-4946-b8f5-1ad0a51fed62.png)
+![Screenshot from 2022-03-18 12-31-59](https://user-images.githubusercontent.com/93121277/158995826-7e2f9398-af1f-4584-8a93-9f17b4ba857e.png)
+
 
 
 
