@@ -76,7 +76,7 @@ z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE,
 # The original file was freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz"
 
 ```r
-f1 <- 'freebayes~bwa~IRGSP-1.0~S14~HOM-VAR.vcf.gz'
+f1 <- 'freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf'
 ```
 # We want to plot the quality scores per SNP for each Chromosome
 
@@ -86,7 +86,8 @@ vcf <- read.vcfR(file = f1)
 
 # VCF attributes
 
-![Screenshot from 2022-03-18 14-20-46](https://user-images.githubusercontent.com/93121277/159010272-ce6f2483-65c1-4ad9-947a-f991c7f0e9d9.png)
+![Screenshot from 2022-03-18 15-25-37](https://user-images.githubusercontent.com/93121277/159021255-6ee11a89-f906-4620-93dd-2bf26d653fa1.png)
+
 
 ```r
 #Convert to tidy data frame
