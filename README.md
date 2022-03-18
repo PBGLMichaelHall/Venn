@@ -85,7 +85,16 @@ vcf <- read.vcfR(file = f1)
 ```
 
 # VCF attributes
-![Screenshot from 2022-03-18 14-04-54](https://user-images.githubusercontent.com/93121277/159008436-92920fed-6bb3-49de-b691-0629e07c5362.png)
+
+![Screenshot from 2022-03-18 14-20-46](https://user-images.githubusercontent.com/93121277/159010272-ce6f2483-65c1-4ad9-947a-f991c7f0e9d9.png)
+
+```r
+#Convert to tidy data frame
+
+vcf <- vcfR2tidy(vcf)
+
+```
+![Screenshot from 2022-03-18 14-15-42](https://user-images.githubusercontent.com/93121277/159009597-2002b451-a108-43ba-a35f-cc109e49d473.png)
 
 
 
