@@ -670,7 +670,83 @@ chromoMap("chr2.txt", "SNP2.txt",labels = T, label_font = 12, label_angle = -65)
 
 ```
 
-# The final plot 
+# The annotated chromosomes for second related group  
 ![Screenshot from 2022-03-18 12-36-37](https://user-images.githubusercontent.com/93121277/158996526-077a0031-9567-4439-9652-66126193fe35.png)
 
+```r
+All_Int <- Reduce(intersect, list(v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18))
+Pos<-lapply(All_Int, function(f) substr(f, 9:16, 21))
+Chr<-lapply(All_Int, function(f) substr(f,6:8,8))
+
+
+Chr<-lapply(Chr, function(f) gsub("6.1", "Chr1", f))
+Chr<-lapply(Chr, function(f) gsub("7.1", "Chr2", f))
+Chr<-lapply(Chr, function(f) gsub("8.1", "Chr3", f))
+Chr<-lapply(Chr, function(f) gsub("9.1", "Chr4", f))
+Chr<-lapply(Chr, function(f) gsub("0.1", "Chr5", f))
+Chr<-lapply(Chr, function(f) gsub("1.1", "Chr6", f))
+Chr<-lapply(Chr, function(f) gsub("2.1", "Chr7", f))
+Chr<-lapply(Chr, function(f) gsub("3.1", "Chr8", f))
+Chr<-lapply(Chr, function(f) gsub("4.1", "Chr9", f))
+Chr<-lapply(Chr, function(f) gsub("5.1", "Chr10", f))
+Chr<-lapply(Chr, function(f) gsub("6.1", "Chr11", f))
+Chr<-lapply(Chr, function(f) gsub("7.1", "Chr12", f))
+
+
+set.seed(99)
+unique_id<-stri_rand_strings(n = 45, length = 4, pattern = "[A-Za-z0-9]")
+
+DF8 <- as.data.frame(cbind(unique_id,Chr,Pos,Pos))
+head(DF8)
+DF8
+
+df_unlist<-function(df){
+  
+  df<-as.data.frame(df)
+  
+  nr<-nrow(df)
+  
+  c.names<-colnames(df)
+  
+  lscols<-as.vector(which(apply(df,2,is.list)==TRUE))
+  
+  if(length(lscols)!=0){
+    
+    for(i in lscols){
+      
+      temp<-as.vector(unlist(df[,i]))
+      
+      if(length(temp)!=nr){
+        
+        adj<-nr-length(temp)
+        
+        temp<-c(rep(0,adj),temp)
+        
+      }
+      
+      df[,i]<-temp
+      
+    } #end for
+    
+    df<-as.data.frame(df)
+    
+    colnames(df)<-c.names
+  }
+  return(df)
+}
+
+
+#Prepare an annotations file
+DF8<-df_unlist(DF8)
+write.table(DF8, file = "SNP3.txt", sep = "\t", row.names = FALSE, col.names = FALSE)
+write.table(DF8, file = "SNP3.csv", sep = ",")
+```
+
+# A list of SNPs shared by both groups
+![Screenshot from 2022-03-18 12-37-30](https://user-images.githubusercontent.com/93121277/158997314-0f03ca48-b721-4535-abbb-1bbdda8a5d5e.png)
+
+
+# Annotated chromosome map of shared SNPs for both groups and all samples
+chromoMap("chr2.txt", "SNP3.txt",labels = T, label_font = 12, label_angle = -65)
+![Screenshot from 2022-03-18 12-40-46](https://user-images.githubusercontent.com/93121277/158997409-59ea965e-2342-4917-b134-513b8279a322.png)
 
