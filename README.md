@@ -747,6 +747,8 @@ write.table(DF8, file = "SNP3.csv", sep = ",")
 
 
 # Annotated chromosome map of shared SNPs for both groups and all samples
+```r
 chromoMap("chr2.txt", "SNP3.txt",labels = T, label_font = 12, label_angle = -65)
+```
 ![Screenshot from 2022-03-18 12-40-46](https://user-images.githubusercontent.com/93121277/158997409-59ea965e-2342-4917-b134-513b8279a322.png)
 
