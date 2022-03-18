@@ -129,7 +129,7 @@ e<-ggplot(data = df, aes(x = SNP, y = Quality, color = AlternateAllele))
 e + geom_point() + labs(title = "Quality per SNP by Alternate Allele")  + geom_smooth()
 
 ```
-# The plot lof quality scores again
+# The plot of quality scores again
 ![Screenshot from 2022-03-17 13-28-18](https://user-images.githubusercontent.com/93121277/158808514-b084a0d5-057a-461e-9630-d3a2644cfc38.png)
 
 ```r
@@ -396,8 +396,10 @@ write.table(DF7, file = "SNP.txt", sep = "\t", row.names = FALSE, col.names = FA
 ```
 
 
-# A text file with each unique SNP for each sample is written to the current directory.
-![Screenshot from 2022-03-17 15-43-17](https://user-images.githubusercontent.com/93121277/158830110-5ffddb8c-8487-4967-92f4-650e7d0ff86b.png)
+# A text file with each unique SNP shared in common with the group of samples is written to the current directory.
+![Screenshot from 2022-03-18 09-02-25](https://user-images.githubusercontent.com/93121277/158960707-1d382a4f-80e3-43fd-aa5f-d2e83e34d4c5.png)
+
+
 
 # A Chromosome file with starting positions and lengths is needed for annotation purposes
 
@@ -435,7 +437,8 @@ chromoMap("chr.txt", "SNP.txt", ploidy = 1)
 
 
 ```
-![Screenshot from 2022-03-17 15-18-47](https://user-images.githubusercontent.com/93121277/158826803-0197e41d-f274-4665-aaff-4dabf4eedc60.png)
+
+![Screenshot from 2022-03-18 09-05-52](https://user-images.githubusercontent.com/93121277/158961129-ede84dce-ee26-4946-b8f5-1ad0a51fed62.png)
 
 
 
@@ -551,8 +554,11 @@ write.table(DF7, file = "SNP2.txt", sep = "\t", row.names = FALSE, col.names = F
 ```
 
 # The SNP2.txt file 
+![Screenshot from 2022-03-18 09-12-03](https://user-images.githubusercontent.com/93121277/158962929-8b8cddfa-01ff-44b8-8c24-e51fe568f0a4.png)
 
-![Screenshot from 2022-03-17 15-43-17](https://user-images.githubusercontent.com/93121277/158830271-5063d8ee-76b4-4a76-a641-4d23db41825e.png)
+
+# A chromosome file is needed to annotate the SNPs
+![Screenshot from 2022-03-18 08-45-29](https://user-images.githubusercontent.com/93121277/158961964-d26eaec9-2cc2-48d4-8094-26d387797d20.png)
 
 
 ```r
@@ -594,5 +600,5 @@ chromoMap("chr2.txt", "SNP2.txt",labels = T, label_font = 12, label_angle = -65)
 ```
 
 # The final plot 
-![Screenshot from 2022-03-17 15-27-47](https://user-images.githubusercontent.com/93121277/158828231-b24d8bb9-e5bc-4084-a1be-8c3109b9a3ef.png)
+![Screenshot from 2022-03-18 09-20-17](https://user-images.githubusercontent.com/93121277/158963110-f889c1c3-ec21-4cce-a42f-e2d0c1449f12.png)
 
