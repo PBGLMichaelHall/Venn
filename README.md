@@ -624,7 +624,8 @@ write.table(DF7, file = "SNP2.txt", sep = "\t", row.names = FALSE, col.names = F
 ```
 
 # The SNP2.txt file 
-![Screenshot from 2022-03-18 09-12-03](https://user-images.githubusercontent.com/93121277/158962929-8b8cddfa-01ff-44b8-8c24-e51fe568f0a4.png)
+![Screenshot from 2022-03-18 12-37-30](https://user-images.githubusercontent.com/93121277/158996508-4d24123b-489a-4c1a-aaf3-4f3d35fd749b.png)
+
 
 
 # A chromosome file is needed to annotate the SNPs
@@ -670,5 +671,6 @@ chromoMap("chr2.txt", "SNP2.txt",labels = T, label_font = 12, label_angle = -65)
 ```
 
 # The final plot 
-![Screenshot from 2022-03-18 09-20-17](https://user-images.githubusercontent.com/93121277/158963110-f889c1c3-ec21-4cce-a42f-e2d0c1449f12.png)
+![Screenshot from 2022-03-18 12-36-37](https://user-images.githubusercontent.com/93121277/158996526-077a0031-9567-4439-9652-66126193fe35.png)
+
 
