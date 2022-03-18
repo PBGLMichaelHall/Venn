@@ -418,7 +418,7 @@ Chr<-lapply(Chr, function(f) gsub("7.1", "Chr12", f))
 #Generate random alphanumeric code for each SNP
 unique_id<-stri_rand_strings(n = 134, length = 4, pattern = "[A-Za-z0-9]")
 
-DF7 <- as.data.frame(cbind(unique_id,Chr,Pos,Pos))
+DF7 <- as.data.frame(cbind(unique_id,Chr,Pos))
 
 
 
@@ -465,7 +465,8 @@ write.table(DF7, file = "SNP.txt", sep = "\t", row.names = FALSE, col.names = FA
 
 
 # A text file with each unique SNP shared in common with the group of samples is written to the current directory.
-![Screenshot from 2022-03-18 09-02-25](https://user-images.githubusercontent.com/93121277/158960707-1d382a4f-80e3-43fd-aa5f-d2e83e34d4c5.png)
+
+![Screenshot from 2022-03-18 12-19-44](https://user-images.githubusercontent.com/93121277/158994173-e104ef2e-5dd9-407c-8a7c-3f430ba39f3e.png)
 
 
 
