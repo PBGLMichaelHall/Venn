@@ -97,6 +97,10 @@ vcf <- vcfR2tidy(vcf)
 ![Screenshot from 2022-03-18 14-15-42](https://user-images.githubusercontent.com/93121277/159009597-2002b451-a108-43ba-a35f-cc109e49d473.png)
 
 
+# Make a Data frame calling the function below
+```r
+
+```
 
 # Call the command from the command line to view the VCF header
 
