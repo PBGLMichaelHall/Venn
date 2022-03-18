@@ -137,6 +137,21 @@ d + geom_point() + labs(title = "Quality per SNP Sample 14") + facet_grid(Chrom)
 ![Screenshot from 2022-03-18 15-23-10](https://user-images.githubusercontent.com/93121277/159020586-2f46749a-8f94-4234-a7e8-5da77ac4a9f8.png)
 
 
+# With the function you can specify any sample in the VCF
+```r
+Data <- QTLseqr::ChromQual(vcf = vcf, SampleName = "S13")
+
+#Call ggplot package to plot the data
+d<-ggplot(data = df, aes(x = SNP, y = Quality))
+d + geom_point() + labs(title = "Quality per SNP Sample 15") + facet_grid(Chrom) + geom_smooth()
+```
+
+# The Plot etc. ...
+
+![Screenshot from 2022-03-18 15-32-06](https://user-images.githubusercontent.com/93121277/159022328-c4032f87-078d-4aca-a355-aa5d776fa15c.png)
+
+
+
 # Call the command from the command line to view the VCF header
 
 ![Screenshot from 2022-03-17 13-17-09](https://user-images.githubusercontent.com/93121277/158806871-b714b995-82b3-49c5-8fc1-9d2733e597b7.png)
@@ -145,7 +160,10 @@ d + geom_point() + labs(title = "Quality per SNP Sample 14") + facet_grid(Chrom)
 
 ![Screenshot from 2022-03-17 13-26-16](https://user-images.githubusercontent.com/93121277/158808252-a43390f9-11d7-402b-8703-8c0266015fe4.png)
 
-
+```r
+#Call the subsettable vcf
+f1 <- 'freebayes~bwa~IRGSP-1.0~S14~HOM-VAR.vcf.gz'
+```
 
 # The reference genome is on line 5 of the header followed by chromosomes/contigs and their corresponding lengths
 ![Screenshot from 2022-03-17 13-15-26](https://user-images.githubusercontent.com/93121277/158806497-0fb347a8-e7da-4736-a130-f0b575a4486f.png)
