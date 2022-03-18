@@ -27,6 +27,11 @@ library(stringi)
 install.packages("chromoMap")
 library(chromoMap)
 
+install.packages("QTLseqr")
+library(QTLseqr)
+
+install.packages("vcfR")
+library(vcfR)
 
 #Set Working Directory
 setwd("/home/michael/Desktop/GenomicVis")
@@ -63,14 +68,26 @@ z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE,
   vcf <- vcf[width(unlist(alt(vcf))) == 1]
   vcf
 }
+```
 
 
 
+# Call in your VCF File
+# The original file was freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz"
 
-#Call in your VCF File
-#The original file was freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz"
+```r
 f1 <- 'freebayes~bwa~IRGSP-1.0~S14~HOM-VAR.vcf.gz'
 ```
+# We want to plot the quality scores per SNP for each Chromosome
+
+```r
+vcf <- read.vcfR(file = f1)
+```
+
+# VCF attributes
+![Screenshot from 2022-03-18 14-04-54](https://user-images.githubusercontent.com/93121277/159008436-92920fed-6bb3-49de-b691-0629e07c5362.png)
+
+
 
 # Call the command from the command line to view the VCF header
 
