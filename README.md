@@ -835,3 +835,34 @@ chromoMap("chr2.txt", "SNP3.txt",labels = T, label_font = 12, label_angle = -65)
 ```
 ![Screenshot from 2022-03-18 12-40-46](https://user-images.githubusercontent.com/93121277/158997409-59ea965e-2342-4917-b134-513b8279a322.png)
 
+# Install the ape package and use the Gene Annotation file to determine if any of the shared SNPs on chromomsome 6 is in a gene
+
+```r
+install.packages("ape")
+library(ape)
+library(dplyr)
+setwd("/home/michael/Desktop/GenomicVis/")
+GFF <- read.gff(file = "GCF_001433935.1_IRGSP-1.0_genomic.gff")
+GFF <- GFF %>% mutate_if(is.factor, as.character)
+# Fiter GFF file by Gene and Chromosome 6
+GFF_Gene <- filter(GFF,type == "gene" & seqid == "NC_029261.1")
+#There are 2725 genes on Chromosome 6
+
+
+
+
+#Call the SNP Table of Common SNPs
+SNP_Table<- read.table(file = "SNP3.csv", header = TRUE, sep = ",")
+#Filter by Chromosome 6
+SNP_Table <- filter(SNP_Table, Chr == "Chr6")
+#Order the Position by Descending
+SNP_Table <- SNP_Table %>% arrange(desc(Pos), unique_id, Chr, Pos.1)
+SNP_Table
+
+GF <- filter(GFF_Gene, start > 18250740 & start < 19202286)
+
+GF[29,]
+```
+![Screenshot from 2022-03-25 15-06-50](https://user-images.githubusercontent.com/93121277/160136349-9469533d-d8c6-4256-a2f1-58a5f7a82250.png)
+# There is one gene that all samples share a common SNP which is located in the region of a gene G ----> T
+
