@@ -860,9 +860,19 @@ SNP_Table <- SNP_Table %>% arrange(desc(Pos), unique_id, Chr, Pos.1)
 SNP_Table
 
 GF <- filter(GFF_Gene, start > 18250740 & start < 19202286)
-
+GF
 GF[29,]
 ```
+![Screenshot from 2022-03-28 08-34-01](https://user-images.githubusercontent.com/93121277/160339779-b7972c3f-ed37-4d23-bfc9-d649950fd89a.png)
+
+
+
 ![Screenshot from 2022-03-25 15-06-50](https://user-images.githubusercontent.com/93121277/160136349-9469533d-d8c6-4256-a2f1-58a5f7a82250.png)
+
 # There is one gene that all samples share a common SNP which is located in the region of a gene G ----> T
+
+![Screenshot from 2022-03-28 08-36-39](https://user-images.githubusercontent.com/93121277/160340097-287d9e19-e1a1-47be-bdf2-f806717f76fb.png)
+
+
+![Screenshot from 2022-03-28 08-36-17](https://user-images.githubusercontent.com/93121277/160340125-0dce24eb-8c25-4980-9556-3c33324bf24d.png)
 
