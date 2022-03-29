@@ -878,3 +878,10 @@ GF[29,]
 ![Screenshot from 2022-03-29 10-03-37](https://user-images.githubusercontent.com/93121277/160563580-e61177ed-cbe4-4e74-8b35-c7681d4d6805.png)
 
 
+# A screen shot of an IGV session confirms that there are 4 particular SNPs shared by all samples.
+
+
+
+![IGV](https://user-images.githubusercontent.com/93121277/160569453-32650353-490f-43ed-b38c-740200c63fb8.png)
+
+
