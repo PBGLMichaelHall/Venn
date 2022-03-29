@@ -869,12 +869,12 @@ GF[29,]
 
 ![Screenshot from 2022-03-25 15-06-50](https://user-images.githubusercontent.com/93121277/160136349-9469533d-d8c6-4256-a2f1-58a5f7a82250.png)
 
-# There are two particular SNPs shared by all Samples on Chromosome 6.
+# There are four particular SNPs shared by all Samples on Chromosome 6 intersecting Gene LOC107276770
 # G ----> T
 
 ![Screenshot from 2022-03-28 08-36-39](https://user-images.githubusercontent.com/93121277/160340097-287d9e19-e1a1-47be-bdf2-f806717f76fb.png)
 
-![Screenshot from 2022-03-29 09-54-40](https://user-images.githubusercontent.com/93121277/160561990-af8e7c19-14eb-4e52-ab78-3d293418e8a0.png)
 
+![Screenshot from 2022-03-29 10-03-37](https://user-images.githubusercontent.com/93121277/160563580-e61177ed-cbe4-4e74-8b35-c7681d4d6805.png)
 
 
