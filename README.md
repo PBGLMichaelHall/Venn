@@ -30,12 +30,16 @@ library(chromoMap)
 devtools::install_github("PBGLMichaelHall/QTLseqr",force =  TRUE)
 library(QTLseqr)
 
+devtools::install_github("PBGLMichaelHall/VCFtoVENNR",force=TRUE)
+library(VCFtoVENNR)
+
 install.packages("vcfR")
 library(vcfR)
 
 #Set Working Directory
 setwd("/home/michael/Desktop/GenomicVis")
 getwd()
+
 
 #Confirm R Session has all libraries and packages available
 sessionInfo()
@@ -45,7 +49,7 @@ sessionInfo()
 
 # Edit readVcf function on line 56 to include indexing from the GenomicVis otherwise you will generate an error in evaluating the argument 'i' in selecting a method for function could not find function elementlengths
 
-# I have modified the function to correct for error
+# I modified this function from GenoicVis package to correct for some deprecated error. You can find it in VCFtoVENNR::GenVIS_Read.Vcf_MH
 ```r
 
 z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE, 
@@ -101,14 +105,14 @@ vcf.fn <- gunzip("freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOM
 
 #Use your own VCF File
 vcf.fn <- "Rename.vcf"
-snpgdsVCF2GDS(vcf.fn, "test.gds", method="biallelic.only")
+SNPRelate::snpgdsVCF2GDS(vcf.fn, "test.gds", method="biallelic.only")
 ``` 
 
 # R Console output
 ![Screenshot from 2022-03-18 09-33-12](https://user-images.githubusercontent.com/93121277/158965095-aacf87e1-8a4a-4a1e-be09-7415f4149133.png)
 
 ```r
-snpgdsSummary("test.gds")
+SNPRelate::snpgdsSummary("test.gds")
 
 ```
 # Summary
@@ -119,13 +123,13 @@ snpgdsSummary("test.gds")
 # Open the GDS file
 
 ```r
-genofile1 <- snpgdsOpen("test.gds")
+genofile1 <- SNPRelate::snpgdsOpen("test.gds")
 
 #Set the seed for consistent reproducible results
 set.seed(1000)
 
 # Pruning the set at different LD thresholds for sensitivity analysis
-snpset <- snpgdsLDpruning(genofile1, autosome.only=TRUE,ld.threshold=0.7)
+snpset <- SNPRelate::snpgdsLDpruning(genofile1, autosome.only=TRUE,ld.threshold=0.7)
 
 ```
 # SNP Pruning output
@@ -138,18 +142,18 @@ snpset.id <- unlist(snpset)
 
 #Open a new development graphics frame
 dev.new()
-diss <- snpgdsDiss(genofile1)
+diss <- SNPRelate::snpgdsDiss(genofile1)
 ```
 # Dissimilarity Output
 ![Screenshot from 2022-03-18 09-37-08](https://user-images.githubusercontent.com/93121277/158965652-bf822e77-c76d-4e49-aa72-f66c49eb15cd.png)
 
 ```r
-hc <- snpgdsHCluster(diss)
+hc <- SNPRelate::snpgdsHCluster(diss)
 
-rv <- snpgdsCutTree(hc, label.H = TRUE, label.Z = TRUE)
+rv <- SNPRelate::snpgdsCutTree(hc, label.H = TRUE, label.Z = TRUE)
 dev.new()
 png(file="Rice Dendrogram.png")
-snpgdsDrawTree(rv,type = "dendrogram",outlier.col = "red", main = "SNP Relate Rice Dendrogram",y.label.kinship = TRUE,leaflab = "textlike")
+SNPRelate::snpgdsDrawTree(rv,type = "dendrogram",outlier.col = "red", main = "SNP Relate Rice Dendrogram",y.label.kinship = TRUE,leaflab = "textlike")
 dev.off()
 ```
 # Rice Dendrogram Tree
@@ -158,24 +162,6 @@ dev.off()
 
 
 ```r
-
-#Edit vcf.venn function from GenomicVis, change names to rownames in line 102  
-z1 <- function (vcf.files, genome, sample.names = NULL, ...) 
-{
-  if (length(vcf.files) > 9) 
-    stop("do.venn: too many VCF files (maximum is 9)")
-  if (is.null(sample.names)) {
-    sample.names <- basename(vcf.files)
-  }
-  else {
-    if (length(vcf.files) != length(sample.names)) 
-      stop("do.venn: length(sample.name) must equal length(vcf.files)")
-  }
-  x <- lapply(vcf.files, function(f) rownames((rowData(readVcf(TabixFile(f), genome, ...)))))
-  names(x) <- sample.names
-  list(venn = Vennerable::Venn(x), data = x)
-}
-
 
 #Choose two samples preferably from the same species in this case it is Rice
 sample.names <- c('S2','S4')
@@ -188,13 +174,13 @@ f2 <- "freebayes~bwa~IRGSP-1.0~S4~HOM-VAR.vcf.gz"
 vcf.files <- c(f1,f2)
 
 #Call the vcf.venn function and provide appropriate arguments 
-v1<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v1<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 
 #Remove anything that is not numerical
 v1 <- gsub("[^0-9.-]","",v1$data$S2)
 
 #Repeat both steps for the second VCF File
-v2<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v2<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v2 <- gsub("[^0-9.-]","",v2$data$S4)
 
 #Create an list object labeling them appropriately by Sample name variables
@@ -228,17 +214,17 @@ f3 <- "freebayes~bwa~IRGSP-1.0~S13~HOM-VAR.vcf.gz"
 vcf.files <- c(f1,f2,f3)
 
 #Call the vcf.venn function and provide appropriate arguments 
-v1<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v1<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 
 #Remove anything that is not numerical
 v1 <- gsub("[^0-9.-]","",v1$data$S1)
 
 #Repeat both steps for the second VCF File
-v2<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v2<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v2 <- gsub("[^0-9.-]","",v2$data$S3)
 
 #Repeat both steps for the third VCF File
-v3<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v3<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v3 <- gsub("[^0-9.-]","",v3$data$S13)
 
 #Create an list object labeling them appropriately by Sample name variables
@@ -274,21 +260,21 @@ f4 <- "freebayes~bwa~IRGSP-1.0~S13~HOM-VAR.vcf.gz"
 vcf.files <- c(f1,f2,f3,f4)
 
 #Call the vcf.venn function and provide appropriate arguments 
-v1<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v1<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 
 #Remove anything that is not numerical
 v1 <- gsub("[^0-9.-]","",v1$data$S1)
 
 #Repeat both steps for the second VCF File
-v2<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v2<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v2 <- gsub("[^0-9.-]","",v2$data$S3)
 
 #Repeat both steps for the third VCF File
-v3<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v3<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v3 <- gsub("[^0-9.-]","",v3$data$S4)
 
 #Repeat both steps for fourth VCF file
-v4<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v4<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v4 <- gsub("[^0-9.-]","",v4$data$S13)
 
 #Create an list object labeling them appropriately by Sample name variables
@@ -327,15 +313,15 @@ sample.names <- c('S1','S2','S3','S4','S13')
 
 
 #Get rid of noise
-v6<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v6<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v6 <- gsub("[^0-9.-]","",v6$data$S1)
-v7<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v7<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v7 <- gsub("[^0-9.-]","",v7$data$S2)
-v8<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v8<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v8 <- gsub("[^0-9.-]","",v8$data$S3)
-v9<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v9<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v9 <- gsub("[^0-9.-]","",v9$data$S4)
-v10<-z1(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
+v10<-VCFtoVENNR::GenVIS_vcf.venn_MH(vcf.files, 'GCF_001433935.1_IRGSP-1.0_genomic.fna',sample.names)
 v10<- gsub("[^0-9.-]","",v10$data$S13)
 
 z99 <- list("Sample1" = v6, "Sample2" = v7, "Sample3" = v8, "Sample4" = v9, "Sample13" = v10)
