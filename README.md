@@ -27,7 +27,7 @@ library(stringi)
 install.packages("chromoMap")
 library(chromoMap)
 
-install.packages("QTLseqr")
+devtools::install_github("PBGLMichaelHall/QTLseqr",force =  TRUE)
 library(QTLseqr)
 
 install.packages("vcfR")
@@ -72,83 +72,15 @@ z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE,
 
 
 
-# Call in your VCF File
-# The original file was freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz"
-
 ```r
-f1 <- 'freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf'
-```
-# We want to plot the quality scores per SNP for each Chromosome
-
-```r
-vcf <- read.vcfR(file = f1)
+setwd("/home/michael/Desktop/GenomicVis")
+Chroms <- c("NC_029256.1","NC_029257.1","NC_029258.1","NC_029259.1","NC_029260.1","NC_029261.1","NC_029262.1","NC_029263.1","NC_029264.1","NC_029265.1","NC_029266.1","NC_029267.1")
+pdf(file = "rice.pdf")
+QTLseqr::ChromQual(vcf = "freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz", chromlist = Chroms, windowSize = 5000000, HighLimQuality = 100, p1= TRUE, p2 = TRUE, p3 = TRUE, p4 = TRUE, p5 = TRUE, p6 = TRUE, p7 = TRUE)
+dev.off()
 ```
 
-# VCF attributes
-
-![Screenshot from 2022-03-18 15-25-37](https://user-images.githubusercontent.com/93121277/159021255-6ee11a89-f906-4620-93dd-2bf26d653fa1.png)
-
-
-```r
-#Convert to tidy data frame
-
-vcf <- vcfR2tidy(vcf)
-
-```
-![Screenshot from 2022-03-18 14-15-42](https://user-images.githubusercontent.com/93121277/159009597-2002b451-a108-43ba-a35f-cc109e49d473.png)
-
-
-# Make a Data frame calling the function below
-```r
-# Call ChromQual function from QTLseqr package
-Data <- QTLseqr::ChromQual(vcf = vcf, SampleName = "S14")
-
-#Refer to DataFrame and find fixed length of Quality vector
-l <- length(Data$Qual)
-
-#Make an object equal to the number of SNPs called
-SNP<-seq(from = 0,to = l - 1, by = 1)
-
-#Extract quality value per SNP called
-Quality<- Data$Qual
-
-#Extract Chromosome Key
-Chrom <- Data$CHROM
-
-#Extract Position
-POS <- Data$POS
-
-#Extract Depth
-DP <- Data$DP
-
-#Extract Reference Allele
-REF <- Data$REF
-
-#Make a dataframe with both objects
-df <- data.frame(x = POS, y = Quality, z = Chrom, z2 = DP, z3 = REF)
-
-#Call ggplot package to plot the data
-d<-ggplot(data = df, aes(x = SNP, y = Quality))
-d + geom_point() + labs(title = "Quality per SNP Sample 14") + facet_grid(Chrom) + geom_smooth()
-
-```
-
-# The plot
-![Screenshot from 2022-03-18 15-23-10](https://user-images.githubusercontent.com/93121277/159020586-2f46749a-8f94-4234-a7e8-5da77ac4a9f8.png)
-
-
-# With the function you can specify any sample in the VCF
-```r
-Data <- QTLseqr::ChromQual(vcf = vcf, SampleName = "S13")
-
-#Call ggplot package to plot the data
-d<-ggplot(data = df, aes(x = SNP, y = Quality))
-d + geom_point() + labs(title = "Quality per SNP Sample 15") + facet_grid(Chrom) + geom_smooth()
-```
-
-# The Plot etc. ...
-
-![Screenshot from 2022-03-18 15-32-06](https://user-images.githubusercontent.com/93121277/159022328-c4032f87-078d-4aca-a355-aa5d776fa15c.png)
+![Screenshot from 2022-05-10 12-30-00](https://user-images.githubusercontent.com/93121277/167608862-847cd67e-ea4c-4563-86ba-0821119a195e.png)
 
 
 
@@ -156,75 +88,17 @@ d + geom_point() + labs(title = "Quality per SNP Sample 15") + facet_grid(Chrom)
 
 ![Screenshot from 2022-03-17 13-17-09](https://user-images.githubusercontent.com/93121277/158806871-b714b995-82b3-49c5-8fc1-9d2733e597b7.png)
 
-# See how I am comparing samples 15 and 14
-
-![Screenshot from 2022-03-17 13-26-16](https://user-images.githubusercontent.com/93121277/158808252-a43390f9-11d7-402b-8703-8c0266015fe4.png)
-
-```r
-#Call the subsettable vcf
-f1 <- 'freebayes~bwa~IRGSP-1.0~S14~HOM-VAR.vcf.gz'
-```
-
-# The reference genome is on line 5 of the header followed by chromosomes/contigs and their corresponding lengths
-![Screenshot from 2022-03-17 13-15-26](https://user-images.githubusercontent.com/93121277/158806497-0fb347a8-e7da-4736-a130-f0b575a4486f.png)
-
-
-
-# Your reference Genome
-
-```r
-genome <- 'GCF_001433935.1_IRGSP-1.0_genomic.fna'
-
-#Read Your VCF File
-
-vcf_z2<-z(f1, genome ,read.info = TRUE, read.geno = TRUE, exclude.filtered = FALSE, filter.func = FALSE)
-
-
-#Refer to DFrame object vcf_z2 in global environment and extract Quality data and number of SNPs called
-l <- length(vcf_z2@fixed$QUAL)
-
-#Make an object equal to the number of SNPs called
-SNP<-seq(from = 0,to = l - 1, by = 1)
-
-#Extract quality value per SNP called
-Quality<-vcf_z2@fixed$QUAL
-
-#Unlist Alternate Allele
-AlternateAllele<- unlist(vcf_z2@fixed$ALT)
-
-#Convert to character data vector
-AlternateAllele<- as.character(AlternateAllele)
-
-#Make a dataframe with both objects
-df <- data.frame(x = SNP, y = Quality)
-
-#Call ggplot package to plot the data
-d<-ggplot(data = df, aes(x = SNP, y = Quality))
-d + geom_point() + labs(title = "Quality per SNP Sample 14 vs. Sample 15") + geom_line(mapping = aes(x = SNP, y = 40)) + geom_smooth()
-
-```
-
-# The plot of quality scores against SNPs called
-![Screenshot from 2022-03-17 13-27-39](https://user-images.githubusercontent.com/93121277/158808390-67a943f2-92aa-4c99-a23d-56035826df39.png)
-
-```r
-#Color code each observation by Alternate Allele
-e<-ggplot(data = df, aes(x = SNP, y = Quality, color = AlternateAllele))
-e + geom_point() + labs(title = "Quality per SNP by Alternate Allele")  + geom_smooth()
-
-```
-# The plot of quality scores again
-![Screenshot from 2022-03-17 13-28-18](https://user-images.githubusercontent.com/93121277/158808514-b084a0d5-057a-461e-9630-d3a2644cfc38.png)
-
+# Set the working directory
 
 ```r
 
-#Set the working directory
+
 setwd("/home/michael/Desktop/SNPREL")
 getwd()
 
 #Decompress gzip file if necessary
-#vcf.fn <- gunzip("freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz")
+vcf.fn <- gunzip("freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~QUAL1000-S15-HOMREF.vcf.gz")
+
 #Use your own VCF File
 vcf.fn <- "Rename.vcf"
 snpgdsVCF2GDS(vcf.fn, "test.gds", method="biallelic.only")
