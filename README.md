@@ -145,7 +145,7 @@ snpset.id <- unlist(snpset)
 
 #Open a new development graphics frame
 dev.new()
-diss <- SNPRelate::snpgdsDiss(genofile1)
+diss <- SNPRelate::snpgdsDiss(genofile1, autosome.only = FALSE)
 ```
 # Dissimilarity Output
 ![Screenshot from 2022-03-18 09-37-08](https://user-images.githubusercontent.com/93121277/158965652-bf822e77-c76d-4e49-aa72-f66c49eb15cd.png)
