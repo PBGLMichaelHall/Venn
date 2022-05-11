@@ -8,6 +8,9 @@ library(devtools)
 install.packages("BiocManager")
 library(BiocManager)
 
+install.packages("SummarizedExperiment")
+library(SummarizedExperiment)
+
 install_github("js229/Vennerable",force = TRUE)
 library(Vennerable)
 
