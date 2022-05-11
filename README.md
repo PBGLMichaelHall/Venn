@@ -52,31 +52,7 @@ sessionInfo()
 
 # Edit readVcf function on line 56 to include indexing from the GenomicVis otherwise you will generate an error in evaluating the argument 'i' in selecting a method for function could not find function elementlengths
 
-# I modified this function from GenoicVis package to correct for some deprecated error. You can find it in VCFtoVENNR::GenVIS_Read.Vcf_MH
-```r
-
-z<-function (f, genome, exclude.filtered = FALSE, read.info = FALSE, 
-             read.geno = FALSE, filter.func = NULL) 
-{
-  params <- if (read.info == FALSE & read.geno == FALSE) 
-    ScanVcfParam(info = NA, geno = NA)
-  else if (read.info == FALSE & read.geno == TRUE) 
-    ScanVcfParam(info = NA)
-  else if (read.info == TRUE & read.geno == FALSE) 
-    ScanVcfParam(geno = NA)
-  else ScanVcfParam()
-  vcf <- readVcf(f, genome, params)
-  if (is.function(filter.func)) 
-    vcf <- filter.func(vcf)
-  if (exclude.filtered) 
-    vcf <- vcf[fixed(vcf)$FILTER %in% c("PASS", ".")]
-  vcf <- vcf[width(ref(vcf)) == 1]
-  vcf <- vcf[elementNROWS(alt(vcf)) == 1]
-  vcf <- vcf[width(unlist(alt(vcf))) == 1]
-  vcf
-}
-```
-
+# I modified a function, GenomicVis::read.vcf from GenoicVis package to correct for some deprecated error. You can find it in VCFtoVENNR::GenVIS_Read.Vcf_MH
 
 
 ```r
