@@ -132,7 +132,7 @@ genofile1 <- SNPRelate::snpgdsOpen("test.gds")
 set.seed(1000)
 
 # Pruning the set at different LD thresholds for sensitivity analysis
-snpset <- SNPRelate::snpgdsLDpruning(genofile1, autosome.only=TRUE,ld.threshold=0.7)
+snpset <- SNPRelate::snpgdsLDpruning(genofile1, autosome.only=FALSE,ld.threshold=0.7)
 
 ```
 # SNP Pruning output
