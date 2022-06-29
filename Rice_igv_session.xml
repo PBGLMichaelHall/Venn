@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="../Analysis/rice-blb-analysis/rice-genome-IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.fna" locus="NC_029261.1:19134000-19170206" version="8">
+    <Resources>
+        <Resource path="../Analysis/rice-blb-analysis/rice-genome-IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.gff" type="gff"/>
+        <Resource path="../Analysis/rice-blb-analysis/variants/freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~filtered-strict.vcf.gz" type="vcf"/>
+        <Resource path="../Analysis/rice-blb-analysis/alignments/bwa~IRGSP-1.0~all-mutants-minus-S14.bam" type="bam"/>
+    </Resources>
+    <Panel height="333" name="Panel1648537820161" width="1834">
+        <Track attributeKey="freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~filtered-strict.vcf.gz" clazz="org.broad.igv.variant.VariantTrack" displayMode="EXPANDED" featureVisibilityWindow="0" fontSize="10" groupByStrand="false" id="/home/michael/Analysis/rice-blb-analysis/variants/freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~filtered-strict.vcf.gz" name="freebayes~bwa~IRGSP-1.0~all-mutants-minus-S14~filtered-strict.vcf.gz" siteColorMode="ALLELE_FREQUENCY" squishedHeight="1" visible="true"/>
+    </Panel>
+    <Panel height="11468" name="Panel1648537897376" width="1834">
+        <Track attributeKey="bwa~IRGSP-1.0~all-mutants-minus-S14.bam Coverage" autoScale="true" clazz="org.broad.igv.sam.CoverageTrack" fontSize="10" id="/home/michael/Analysis/rice-blb-analysis/alignments/bwa~IRGSP-1.0~all-mutants-minus-S14.bam_coverage" name="bwa~IRGSP-1.0~all-mutants-minus-S14.bam Coverage" snpThreshold="0.2" visible="true">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="2632.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track attributeKey="bwa~IRGSP-1.0~all-mutants-minus-S14.bam Junctions" clazz="org.broad.igv.sam.SpliceJunctionTrack" fontSize="10" groupByStrand="false" height="60" id="/home/michael/Analysis/rice-blb-analysis/alignments/bwa~IRGSP-1.0~all-mutants-minus-S14.bam_junctions" name="bwa~IRGSP-1.0~all-mutants-minus-S14.bam Junctions" visible="false"/>
+        <Track attributeKey="bwa~IRGSP-1.0~all-mutants-minus-S14.bam" clazz="org.broad.igv.sam.AlignmentTrack" color="185,185,185" displayMode="EXPANDED" experimentType="OTHER" fontSize="10" id="/home/michael/Analysis/rice-blb-analysis/alignments/bwa~IRGSP-1.0~all-mutants-minus-S14.bam" name="bwa~IRGSP-1.0~all-mutants-minus-S14.bam" visible="true">
+            <RenderOptions/>
+        </Track>
+    </Panel>
+    <Panel height="1125" name="FeaturePanel" width="1834">
+        <Track attributeKey="Reference sequence" clazz="org.broad.igv.track.SequenceTrack" fontSize="10" id="Reference sequence" name="Reference sequence" sequenceTranslationStrandValue="POSITIVE" shouldShowTranslation="false" visible="true"/>
+        <Track attributeKey="GCF_001433935.1_IRGSP-1.0_genomic.gff" clazz="org.broad.igv.track.FeatureTrack" colorScale="ContinuousColorScale;0.0;2121.0;255,255,255;0,0,178" displayMode="EXPANDED" fontSize="10" groupByStrand="false" id="/home/michael/Analysis/rice-blb-analysis/rice-genome-IRGSP-1.0/GCF_001433935.1_IRGSP-1.0_genomic.gff" name="GCF_001433935.1_IRGSP-1.0_genomic.gff" visible="true"/>
+    </Panel>
+    <PanelLayout dividerFractions="0.01072961373390558,0.37339055793991416,0.6888412017167382"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
